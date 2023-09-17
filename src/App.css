@@ -36,3 +36,45 @@
     transform: rotate(360deg);
   }
 }
+
+
+.headLine {
+  display: flex;
+  align-items: center;
+}
+
+.headLineText {
+  font-size: 10px;
+  margin-right: 10px;
+}
+.custom-checkbox input{
+  display: none;
+}
+.custom-checkbox input[type="checkbox"]:checked + label::before {
+  display: inline-block;
+  width: 10px; 
+  height: 10px; 
+  background-color: orange; 
+  border: 1px solid #ccc; 
+  cursor: pointer;
+}
+
+.custom-checkbox label::before {
+  content: '\2713'; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8px; 
+  color: white; 
+  display: none; 
+}
+
+.custom-checkbox label {
+  display: inline-block;
+  width: 10px;
+  height: 10px; 
+  border: 1px solid #ccc; 
+  cursor: pointer;
+  position: relative;
+}
