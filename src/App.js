@@ -46,7 +46,7 @@ function App() {
     if(!isValidEmail(email)){
       alert('Invalid email address')
     }
-    else if(serverAddress!=="" || isAdvanced && ( serverPath !=="" || !isValidPort(port))){
+    else if(serverAddress!=="" || isAdvanced && ( serverPath ==="" || !isValidPort(port))){
       alert('required valid  server-address,server-path and port')
     }
     else{
