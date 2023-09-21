@@ -14,12 +14,6 @@ function App() {
   const handleClickSSl = () =>{
     setIsChecked((current) => !current);
 
-    setFormData((current)=>({
-      ...current,
-      "isSSL":isChecked
-    }))
-
-    
  
   }
 
@@ -31,22 +25,25 @@ function App() {
   }
 
   const handleChange=(e)=>{
-
+    if(e.target.id==="isSSL"){
+      setFormData((current)=>({
+        ...current,
+        "isSSL":isChecked
+      }))
+    }else{
       setFormData((current)=>({
         ...current,
         [e.target.id]:e.target.value
       }))
+    }
    
   }
 
   const handleSignInSubmit=(e)=>{
     e.preventDefault();
     //validation
-    console.log(formData)
-    if(!isValidEmail(email)){
-      alert('Invalid email address')
-    }
-    else if(serverAddress!=="" || isAdvanced && ( serverPath ==="" || !isValidPort(port))){
+    
+    if((serverAddress ==="") || (isAdvanced && ( serverPath ==="" || !isValidPort(port)))){
       alert('required valid  server-address,server-path and port')
     }
     else{
@@ -72,14 +69,6 @@ function App() {
 
   }
 
-  function isValidEmail(email) {
-    // Regular expression pattern for a valid email address
-    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  
-    // Test the email against the pattern
-    return pattern.test(email);
-  }
-  
   function isValidPort(port) {
     // Parse the port to ensure it's a valid integer
     const parsedPort = parseInt(port, 10);
@@ -90,7 +79,7 @@ function App() {
 
 
   return (
-    <div style={{marginLeft:'50px',marginTop:'50px'}}>
+    <div id="container" >
       <form onSubmit={handleSignInSubmit}>
         
         <div className='headLine' >
@@ -99,40 +88,40 @@ function App() {
         </div>
 
         <div className='headLine'>
-          <p className='headLineText'>user Name:</p>
+          <p className='headLineText'>User Name:</p>
           <input required type='email' id="email" value={email} placeholder='name@example.com' onChange={handleChange}/>
         </div>
 
         <div className='headLine'>
-          <p className='headLineText'>Password</p>
+          <p className='headLineText'>Password:</p>
           <input required type='password' id="password" value={password} placeholder='Password' onChange={handleChange}></input>
         </div>
 
         <div className='headLine'>
-          <p className='headLineText'>Server address</p>
+          <p className='headLineText'>Server address:</p>
           <input required type='text' id="serverAddress" value={serverAddress} placeholder='example.com' onChange={handleChange}></input>
         </div>
 
         {isAdvanced &&
-        <div>
-           <div className='headLine'>
-          <p className='headLineText'>Server Path</p>
-          <input  type='text' id="serverPath" value={serverPath} placeholder='/calendars/user/' onChange={handleChange}></input>
-        </div>
-
-        <div className='headLine'>
-          <p className='headLineText'>port</p>
-          <input style={{width:'30px',marginRight:'30px'}} type='text' id="port" value={port}  onChange={handleChange}></input>
-        
-          {/* <input style={{backgroundColor:'orange'}}  type='checkbox' id="isSSL" value={isChecked} checked={isChecked} onClick={handleClickSSl} onChange={handleChange}></input> */}
-          <div class="custom-checkbox">
-            <input type="checkbox" id='isSSL' value={isChecked} checked={isChecked} />
-            <label for="isSSL"  onClick={handleClickSSl}></label>
+        <div id="is_advanced">
+          <div className='headLine'>
+            <p className='headLineText'>Server Path:</p>
+            <input  type='text' id="serverPath" value={serverPath} placeholder='/calendars/user/' onChange={handleChange}></input>
           </div>
-          <p style={{fontSize:'10px',marginRight:'10px'}}>is SSL</p>
-        </div>
-        </div>}
 
+          <div className='headLine'>
+            <p className='headLineText'>port:</p>
+            <input type='text' id="port" value={port}  onChange={handleChange}></input>
+        
+            {/* <input style={{backgroundColor:'orange'}}  type='checkbox' id="isSSL" value={isChecked} checked={isChecked} onClick={handleClickSSl} onChange={handleChange}></input> */}
+            <div class="custom-checkbox">
+              <input type="checkbox" id='isSSL' value={isChecked} checked={isChecked}  onChange={handleChange} />
+              <label for="isSSL"  onClick={handleClickSSl}></label>
+            </div>
+            <p className="useSSL">Use SSL</p>
+          </div>
+        </div>}
+        
         <button type='submit'>submit</button>
       </form>
     </div>
